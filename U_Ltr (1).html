@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tràn Ngập Nhớ Em</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #FFC0CB;
+            font-family: Arial, sans-serif;
+        }
+
+        .floating-window {
+            position: absolute;
+            width: 300px;
+            padding: 20px;
+            background-color: #FFC0CB;
+            border: 2px solid black;
+            color: black;
+            font-size: 14px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            animation: float-animation 5s linear infinite;
+        }
+
+        #start-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: #ff8c94;
+            color: black;
+            border: none;
+            border-radius: 5px;
+        }
+
+        @keyframes float-animation {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(10px, 10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Nút bắt đầu -->
+    <button id="start-button">Ấn vào đêuuu !!</button>
+
+    <!-- Nhạc nền -->
+    <iframe
+        id="background-music"
+        width="0"
+        height="0"
+        src=""
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        style="display: none;">
+    </iframe>
+
+    <script>
+        const startButton = document.getElementById('start-button');
+        const musicIframe = document.getElementById('background-music');
+        const body = document.body;
+
+        // Lời bài hát, mỗi dòng là một phần tử
+        const lyrics = [
+            "Có tham lam lắm không khi anh chỉ muốn mình em trong đầu?",
+            "Với từng chiếc áo phông mang hương em mỗi đêm cho ta quên sầu",
+            "Loay hoay, quay cuồng, tại sao con tim cứ ôm mãi một bông hoa không rời?",
+            "Sự thật là bộ nhớ đầy quá, dữ liệu đẹp anh khó thể xóa",
+            "Từng bóng hình em",
+            "Hóa ra chuyện mình thật tình",
+            "Tựa cuốn phim từ đài truyền hình",
+            "Nên anh lưu giữ file",
+            "Để khó phai, good vibe",
+            "Tràn ngập bộ nhớ, nhớ, nhớ, nhớ em",
+            "Cho anh cảm giác không sao quên được",
+            "Nhưng anh mong có cảm giác này mãi",
+            "Yêu thương sao cho vừa?",
+            "Hay anh đang lo thừa?",
+            "Cho anh mong như cơm bữa",
+            "Em đừng xinh như thế nữa",
+            "Loạn nhịp cả tim lên rồi",
+            "Đầu này toàn là em mà thôi",
+            "Nỗi nhớ em cầu kỳ nên chẳng biết lý do là gì",
+            "Hao tốn hơi nhiều GB nên cần dùng thêm USB"
+        ];
+
+        // Lấy vị trí ngẫu nhiên
+        function getRandomPosition() {
+            const x = Math.random() * (window.innerWidth - 300);
+            const y = Math.random() * (window.innerHeight - 150);
+            return { x, y };
+        }
+
+        // Tạo một khung nổi với một dòng ngẫu nhiên
+        function createFloatingWindow() {
+            const { x, y } = getRandomPosition();
+            const randomLine = lyrics[Math.floor(Math.random() * lyrics.length)];
+            const floatingWindow = document.createElement('div');
+            floatingWindow.classList.add('floating-window');
+            floatingWindow.textContent = randomLine; // Gán nội dung một dòng
+            floatingWindow.style.left = `${x}px`;
+            floatingWindow.style.top = `${y}px`;
+            body.appendChild(floatingWindow);
+
+            // Tạo thêm khung mới sau 500ms
+            setTimeout(createFloatingWindow, 500);
+        }
+
+        startButton.addEventListener('click', () => {
+            startButton.style.display = 'none'; // Ẩn nút bắt đầu
+            musicIframe.src = "https://www.youtube.com/embed/qRuSS93OEfw?autoplay=1&loop=1&playlist=qRuSS93OEfw"; // Gán URL nhúng với autoplay và loop
+            musicIframe.style.display = 'block'; // Hiển thị nhạc
+            createFloatingWindow(); // Bắt đầu tạo khung
+        });
+    </script>
+</body>
+</html>
